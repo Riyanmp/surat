@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Surat - ITBAN IV Inspektorat NTB</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img class="brand-logo" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhI8_WyUqz2uBbR1c1Z9GvvKGjk-4oy5D7O-5pnY-LKlFvTed_bsC4yH-Zhym50qrjRKtH6RNML9JBJMHylXeUqlFYAQfFCSO5xS4XdLz-IxEv5CUYLMIyzHjoZJ2BeZTpo7o0coKYaOz95fKeFxfKBvo8KaKCMrZdd34VB98y_iYZ1f5JYKFfzPA/s1043/Provinsi%20NTB.png" alt="Logo NTB">
+            <div>
+                <span class="brand-text">RUANGAN ITBAN IV</span>
+                <span class="brand-sub">Inspektorat Provinsi NTB</span>
+            </div>
+        </div>
+        <nav class="sidebar-menu">
+            <div class="sidebar-section">Akun</div>
+            <a href="profil.html" class="menu-item">
+                <span class="menu-icon">&#9787;</span> Profil
+            </a>
+            <div class="sidebar-section">Menu Utama</div>
+            <a href="index.html" class="menu-item">
+                <span class="menu-icon">&#9654;</span> Beranda
+            </a>
+            <a href="input.html" class="menu-item" id="menuInput">
+                <span class="menu-icon">&#43;</span> Input Surat
+            </a>
+            <a href="data.html" class="menu-item active">
+                <span class="menu-icon">&#9776;</span> Data Surat
+            </a>
+            <a href="laporan.html" class="menu-item">
+                <span class="menu-icon">&#9733;</span> Laporan
+            </a>
+            <div class="sidebar-section">Lainnya</div>
+            <a href="tracking.html" class="menu-item">
+                <span class="menu-icon">&#9656;</span> Tracking
+            </a>
+            <a href="panduan.html" class="menu-item">
+                <span class="menu-icon">&#9873;</span> Panduan
+            </a>
+        </nav>
+        <div class="sidebar-footer">Pemprov NTB &copy; 2026</div>
+    </aside>
+
+    <div class="sidebar-overlay" onclick="document.getElementById('sidebar').classList.remove('show')"></div>
+
+    <div class="main">
+        <header class="header">
+            <button class="btn-menu" onclick="document.getElementById('sidebar').classList.toggle('show')">&#9776;</button>
+            <h2 class="header-title">Data Surat Masuk</h2>
+            <a href="input.html" class="header-btn" id="btnInputBaru">+ Input Baru</a>
+            <span class="header-user" id="headerUser"></span>
+            <button class="btn btn-gray btn-sm" onclick="logout()">Keluar</button>
+        </header>
+
+        <div class="body">
+            <div class="row-4">
+                <a href="data.html" class="card-stat border-blue anim-card-stat">
+                    <span class="stat-icon blue">&#9993;</span>
+                    <div class="stat-info">
+                        <div class="stat-val blue" id="totalSurat">0</div>
+                        <div class="stat-lbl">Total Surat</div>
+                    </div>
+                </a>
+                <a href="data.html?filter=ditangani" class="card-stat border-green anim-card-stat">
+                    <span class="stat-icon green">&#10003;</span>
+                    <div class="stat-info">
+                        <div class="stat-val green" id="sudahDitangani">0</div>
+                        <div class="stat-lbl">Ditangani</div>
+                    </div>
+                </a>
+                <a href="data.html?filter=belum" class="card-stat border-orange anim-card-stat">
+                    <span class="stat-icon orange">&#8987;</span>
+                    <div class="stat-info">
+                        <div class="stat-val orange" id="belumDitangani">0</div>
+                        <div class="stat-lbl">Belum Ditangani</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card anim-card">
+                <div class="toolbar anim-toolbar">
+                    <input type="text" id="searchInput" class="input-search" placeholder="Cari surat...">
+                    <button class="btn btn-blue btn-sm" onclick="cetakData()">&#9113; Cetak</button>
+                    <button class="btn btn-red btn-sm" id="btnDeleteAll">Hapus Semua</button>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="table" id="suratTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Sumber</th>
+                                <th>Perihal</th>
+                                <th>Nomor</th>
+                                <th>Tgl Surat</th>
+                                <th>Tgl Masuk</th>
+                                <th>Tgl ITBAN</th>
+                                <th>Disposisi</th>
+                                <th>Tgl DANIS</th>
+                                <th>Tindak Lanjut</th>
+                                <th>Kendala</th>
+                                <th>File</th>
+                                <th>Aksi</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="suratBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="card-foot">
+                    <span id="dataCount">0 data</span>
+                    <div class="empty" id="emptyTable">
+                        <div class="empty-icon">&#9776;</div>
+                        Belum ada data. <a href="input.html">Input sekarang</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <script src="script.js"></script>
+    <script>
+        if (!isLoggedIn()) { window.location.href = 'login.html'; }
+        document.getElementById('headerUser').textContent = getUserLabel();
+        if (!isAdmin()) {
+            document.getElementById('menuInput').style.display = 'none';
+            document.getElementById('btnInputBaru').style.display = 'none';
+        }
+        initDataPage();
+        initSidebar();
+    </script>
+
+</body>
+</html>

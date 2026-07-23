@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan - ITBAN IV Inspektorat NTB</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img class="brand-logo" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhI8_WyUqz2uBbR1c1Z9GvvKGjk-4oy5D7O-5pnY-LKlFvTed_bsC4yH-Zhym50qrjRKtH6RNML9JBJMHylXeUqlFYAQfFCSO5xS4XdLz-IxEv5CUYLMIyzHjoZJ2BeZTpo7o0coKYaOz95fKeFxfKBvo8KaKCMrZdd34VB98y_iYZ1f5JYKFfzPA/s1043/Provinsi%20NTB.png" alt="Logo NTB">
+            <div>
+                <span class="brand-text">RUANGAN ITBAN IV</span>
+                <span class="brand-sub">Inspektorat Provinsi NTB</span>
+            </div>
+        </div>
+        <nav class="sidebar-menu">
+            <div class="sidebar-section">Akun</div>
+            <a href="profil.html" class="menu-item">
+                <span class="menu-icon">&#9787;</span> Profil
+            </a>
+            <div class="sidebar-section">Menu Utama</div>
+            <a href="index.html" class="menu-item">
+                <span class="menu-icon">&#9654;</span> Beranda
+            </a>
+            <a href="input.html" class="menu-item" id="menuInput">
+                <span class="menu-icon">&#43;</span> Input Surat
+            </a>
+            <a href="data.html" class="menu-item">
+                <span class="menu-icon">&#9776;</span> Data Surat
+            </a>
+            <a href="laporan.html" class="menu-item active">
+                <span class="menu-icon">&#9733;</span> Laporan
+            </a>
+            <div class="sidebar-section">Lainnya</div>
+            <a href="tracking.html" class="menu-item">
+                <span class="menu-icon">&#9656;</span> Tracking
+            </a>
+            <a href="panduan.html" class="menu-item">
+                <span class="menu-icon">&#9873;</span> Panduan
+            </a>
+        </nav>
+        <div class="sidebar-footer">Pemprov NTB &copy; 2026</div>
+    </aside>
+
+    <div class="sidebar-overlay" onclick="document.getElementById('sidebar').classList.remove('show')"></div>
+
+    <div class="main">
+        <header class="header">
+            <button class="btn-menu" onclick="document.getElementById('sidebar').classList.toggle('show')">&#9776;</button>
+            <h2 class="header-title">Laporan Persuratan</h2>
+            <span class="header-user" id="headerUser"></span>
+            <button class="btn btn-gray btn-sm" onclick="logout()">Keluar</button>
+        </header>
+
+        <div class="body">
+            <div class="row-4">
+                <div class="card-stat border-blue anim-card-stat">
+                    <span class="stat-icon blue">&#9993;</span>
+                    <div class="stat-info">
+                        <div class="stat-val blue" id="rptTotal">0</div>
+                        <div class="stat-lbl">Total Surat</div>
+                    </div>
+                </div>
+                <div class="card-stat border-green anim-card-stat">
+                    <span class="stat-icon green">&#10003;</span>
+                    <div class="stat-info">
+                        <div class="stat-val green" id="rptDitangani">0</div>
+                        <div class="stat-lbl">Ditangani</div>
+                    </div>
+                </div>
+                <div class="card-stat border-orange anim-card-stat">
+                    <span class="stat-icon orange">&#8987;</span>
+                    <div class="stat-info">
+                        <div class="stat-val orange" id="rptBelum">0</div>
+                        <div class="stat-lbl">Belum Ditangani</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-2">
+                <div class="card anim-card">
+                    <div class="card-head">
+                        <span>Grafik Surat Per Bulan</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-bars" id="chartBulanan"></div>
+                        <div class="empty" id="emptyChart">
+                            <div class="empty-icon">&#9733;</div>
+                            Belum ada data untuk ditampilkan
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card anim-card">
+                    <div class="card-head">
+                        <span>Status Surat</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="donut-wrap" id="donutWrap" style="display:none">
+                            <div class="donut-chart" id="donutChart">
+                                <div class="donut-center" id="donutCenter">0%</div>
+                            </div>
+                            <div class="donut-legend">
+                                <div class="legend-item">
+                                    <span class="legend-dot" style="background:#2e7d32"></span>
+                                    <span class="legend-text">Ditangani: <strong id="donutDitangani">0</strong></span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-dot" style="background:#e65100"></span>
+                                    <span class="legend-text">Belum: <strong id="donutBelum">0</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="empty" id="emptyDonut">
+                            <div class="empty-icon">&#9733;</div>
+                            Belum ada data
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-2" style="margin-top:10px">
+                <div class="card anim-card">
+                    <div class="card-head">
+                        <span>Sumber Surat Terbanyak</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="top-list" id="topSumber"></div>
+                        <div class="empty" id="emptyTop">
+                            <div class="empty-icon">&#9733;</div>
+                            Belum ada data
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card anim-card">
+                    <div class="card-head">
+                        <span>Distribusi Per Tahun</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="year-bars" id="yearBars" style="display:none"></div>
+                        <div class="empty" id="emptyYear">
+                            <div class="empty-icon">&#9733;</div>
+                            Belum ada data
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card anim-card" style="margin-top:10px">
+                <div class="card-head">
+                    <span>Rekap Status Per Bulan</span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-wrap">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width:120px">Bulan</th>
+                                    <th style="width:70px;text-align:center">Total</th>
+                                    <th style="width:90px;text-align:center">Ditangani</th>
+                                    <th style="width:90px;text-align:center">Belum</th>
+                                    <th style="text-align:left">Persentase Selesai</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rekapBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <script src="script.js"></script>
+    <script>
+        if (!isLoggedIn()) { window.location.href = 'login.html'; }
+        document.getElementById('headerUser').textContent = getUserLabel();
+        if (!isAdmin()) {
+            document.getElementById('menuInput').style.display = 'none';
+        }
+        loadLaporan();
+        initSidebar();
+    </script>
+
+</body>
+</html>

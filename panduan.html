@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan - ITBAN IV Inspektorat NTB</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img class="brand-logo" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhI8_WyUqz2uBbR1c1Z9GvvKGjk-4oy5D7O-5pnY-LKlFvTed_bsC4yH-Zhym50qrjRKtH6RNML9JBJMHylXeUqlFYAQfFCSO5xS4XdLz-IxEv5CUYLMIyzHjoZJ2BeZTpo7o0coKYaOz95fKeFxfKBvo8KaKCMrZdd34VB98y_iYZ1f5JYKFfzPA/s1043/Provinsi%20NTB.png" alt="Logo NTB">
+            <div>
+                <span class="brand-text">RUANGAN ITBAN IV</span>
+                <span class="brand-sub">Inspektorat Provinsi NTB</span>
+            </div>
+        </div>
+        <nav class="sidebar-menu">
+            <div class="sidebar-section">Akun</div>
+            <a href="profil.html" class="menu-item">
+                <span class="menu-icon">&#9787;</span> Profil
+            </a>
+            <div class="sidebar-section">Menu Utama</div>
+            <a href="index.html" class="menu-item">
+                <span class="menu-icon">&#9654;</span> Beranda
+            </a>
+            <a href="input.html" class="menu-item" id="menuInput">
+                <span class="menu-icon">&#43;</span> Input Surat
+            </a>
+            <a href="data.html" class="menu-item">
+                <span class="menu-icon">&#9776;</span> Data Surat
+            </a>
+            <a href="laporan.html" class="menu-item">
+                <span class="menu-icon">&#9733;</span> Laporan
+            </a>
+            <div class="sidebar-section">Lainnya</div>
+            <a href="tracking.html" class="menu-item">
+                <span class="menu-icon">&#9656;</span> Tracking
+            </a>
+            <a href="panduan.html" class="menu-item active">
+                <span class="menu-icon">&#9873;</span> Panduan
+            </a>
+        </nav>
+        <div class="sidebar-footer">Pemprov NTB &copy; 2026</div>
+    </aside>
+
+    <div class="sidebar-overlay" onclick="document.getElementById('sidebar').classList.remove('show')"></div>
+
+    <div class="main">
+        <header class="header">
+            <button class="btn-menu" onclick="document.getElementById('sidebar').classList.toggle('show')">&#9776;</button>
+            <h2 class="header-title">Panduan Penggunaan</h2>
+            <span class="header-user" id="headerUser"></span>
+            <button class="btn btn-gray btn-sm" onclick="logout()">Keluar</button>
+        </header>
+
+        <div class="body">
+            <div class="card anim-card">
+                <div class="card-head"><span>Tentang Sistem</span></div>
+                <div class="card-body">
+                    <p class="guide-text">Sistem Persuratan Digital Ruangan ITBAN IV Inspektorat Provinsi NTB digunakan untuk mencatat, memantau, dan mengelola surat masuk secara digital. Semua data tersimpan secara lokal di browser (localStorage).</p>
+                </div>
+            </div>
+
+            <div class="card anim-card" style="margin-top:10px">
+                <div class="card-head"><span>Hak Akses</span></div>
+                <div class="card-body p-0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width:80px;text-align:center">Fitur</th>
+                                <th style="width:80px;text-align:center">Admin</th>
+                                <th style="width:80px;text-align:center">User</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Lihat Dashboard</td><td class="w-center">&#10003;</td><td class="w-center">&#10003;</td></tr>
+                            <tr><td>Input Surat</td><td class="w-center">&#10003;</td><td class="w-center">&#10007;</td></tr>
+                            <tr><td>Edit / Hapus Surat</td><td class="w-center">&#10003;</td><td class="w-center">&#10007;</td></tr>
+                            <tr><td>Ganti Status Surat</td><td class="w-center">&#10003;</td><td class="w-center">&#10007;</td></tr>
+                            <tr><td>Cetak Data</td><td class="w-center">&#10003;</td><td class="w-center">&#10003;</td></tr>
+                            <tr><td>Lihat Laporan</td><td class="w-center">&#10003;</td><td class="w-center">&#10003;</td></tr>
+                            <tr><td>Lihat Arsip</td><td class="w-center">&#10003;</td><td class="w-center">&#10003;</td></tr>
+                            <tr><td>Ganti Password</td><td class="w-center">&#10003;</td><td class="w-center">&#10003;</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card anim-card" style="margin-top:10px">
+                <div class="card-head"><span>Cara Penggunaan</span></div>
+                <div class="card-body">
+                    <div class="guide-steps">
+                        <div class="guide-step">
+                            <div class="guide-num">1</div>
+                            <div class="guide-content">
+                                <strong>Login</strong>
+                                <p>Masukkan username dan password. Admin: admin/admin123, User: user/user123.</p>
+                            </div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-num">2</div>
+                            <div class="guide-content">
+                                <strong>Input Surat Baru</strong>
+                                <p>Klik menu "Input Surat", isi semua kolom yang diperlukan (sumber, nomor, perihal, tanggal). Upload file surat jika ada (PDF/Word/Gambar, maks 2MB).</p>
+                            </div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-num">3</div>
+                            <div class="guide-content">
+                                <strong>Kelola Data Surat</strong>
+                                <p>Di menu "Data Surat", gunakan pencarian untuk menemukan surat. Klik tombol "Ubah" untuk mengganti status. Klik ikon mata untuk melihat file lampiran.</p>
+                            </div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-num">4</div>
+                            <div class="guide-content">
+                                <strong>Cetak Data</strong>
+                                <p>Klik tombol "Cetak" di halaman Data Surat untuk mencetak seluruh data dalam format tabel rapi.</p>
+                            </div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-num">5</div>
+                            <div class="guide-content">
+                                <strong>Lihat Laporan</strong>
+                                <p>Menu "Laporan" menampilkan grafik surat per bulan, sumber surat terbanyak, dan rekap status dengan persentase penyelesaian.</p>
+                            </div>
+                        </div>
+                        <div class="guide-step">
+                            <div class="guide-num">6</div>
+                            <div class="guide-content">
+                                <strong>Arsip Surat</strong>
+                                <p>Surat yang statusnya "Ditangani" otomatis masuk ke arsip. Anda juga bisa mengarsipkan manual dari menu "Arsip".</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card anim-card" style="margin-top:10px">
+                <div class="card-head"><span>Kontak</span></div>
+                <div class="card-body">
+                    <p class="guide-text">Untuk bantuan atau kendala teknis, hubungi administrator sistem Ruangan ITBAN IV Inspektorat Provinsi NTB.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <script src="script.js"></script>
+    <script>
+        if (!isLoggedIn()) { window.location.href = 'login.html'; }
+        document.getElementById('headerUser').textContent = getUserLabel();
+        if (!isAdmin()) {
+            document.getElementById('menuInput').style.display = 'none';
+        }
+        initSidebar();
+    </script>
+
+</body>
+</html>

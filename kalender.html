@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalender - ITBAN IV Inspektorat NTB</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img class="brand-logo" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhI8_WyUqz2uBbR1c1Z9GvvKGjk-4oy5D7O-5pnY-LKlFvTed_bsC4yH-Zhym50qrjRKtH6RNML9JBJMHylXeUqlFYAQfFCSO5xS4XdLz-IxEv5CUYLMIyzHjoZJ2BeZTpo7o0coKYaOz95fKeFxfKBvo8KaKCMrZdd34VB98y_iYZ1f5JYKFfzPA/s1043/Provinsi%20NTB.png" alt="Logo NTB">
+            <div>
+                <span class="brand-text">RUANGAN ITBAN IV</span>
+                <span class="brand-sub">Inspektorat Provinsi NTB</span>
+            </div>
+        </div>
+        <nav class="sidebar-menu">
+            <div class="sidebar-section">Akun</div>
+            <a href="profil.html" class="menu-item">
+                <span class="menu-icon">&#9787;</span> Profil
+            </a>
+            <div class="sidebar-section">Menu Utama</div>
+            <a href="index.html" class="menu-item">
+                <span class="menu-icon">&#9654;</span> Beranda
+            </a>
+            <a href="input.html" class="menu-item" id="menuInput">
+                <span class="menu-icon">&#43;</span> Input Surat
+            </a>
+            <a href="data.html" class="menu-item">
+                <span class="menu-icon">&#9776;</span> Data Surat
+            </a>
+            <a href="laporan.html" class="menu-item">
+                <span class="menu-icon">&#9733;</span> Laporan
+            </a>
+            <div class="sidebar-section">Lainnya</div>
+            <a href="kalender.html" class="menu-item active">
+                <span class="menu-icon">&#9788;</span> Kalender
+            </a>
+            <a href="panduan.html" class="menu-item">
+                <span class="menu-icon">&#9873;</span> Panduan
+            </a>
+        </nav>
+        <div class="sidebar-footer">Pemprov NTB &copy; 2026</div>
+    </aside>
+
+    <div class="sidebar-overlay" onclick="document.getElementById('sidebar').classList.remove('show')"></div>
+
+    <div class="main">
+        <header class="header">
+            <button class="btn-menu" onclick="document.getElementById('sidebar').classList.toggle('show')">&#9776;</button>
+            <h2 class="header-title">Kalender Persuratan</h2>
+            <button class="btn btn-gray btn-sm" id="btnPrev" onclick="calNav(-1)">&#9664;</button>
+            <span class="header-date" id="calMonth"></span>
+            <button class="btn btn-gray btn-sm" id="btnNext" onclick="calNav(1)">&#9654;</button>
+            <span class="header-user" id="headerUser"></span>
+            <button class="btn btn-gray btn-sm" onclick="logout()">Keluar</button>
+        </header>
+
+        <div class="body">
+            <div class="card anim-card">
+                <div class="card-body p-0">
+                    <div class="cal-grid">
+                        <div class="cal-head">Min</div>
+                        <div class="cal-head">Sen</div>
+                        <div class="cal-head">Sel</div>
+                        <div class="cal-head">Rab</div>
+                        <div class="cal-head">Kam</div>
+                        <div class="cal-head">Jum</div>
+                        <div class="cal-head">Sab</div>
+                        <div id="calDays"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card anim-card" style="margin-top:10px">
+                <div class="card-head">
+                    <span>Detail Tanggal: <strong id="calDetailDate">-</strong></span>
+                    <span id="calDetailCount" class="badge badge-blue" style="display:none">0 surat</span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-wrap">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="w-num">#</th>
+                                    <th>Sumber</th>
+                                    <th>Perihal</th>
+                                    <th>Nomor</th>
+                                    <th>Tgl Masuk</th>
+                                    <th>Tgl ITBAN</th>
+                                    <th style="width:80px">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="calDetailBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="empty" id="emptyCal">
+                        <div class="empty-icon">&#9788;</div>
+                        Pilih tanggal untuk melihat detail surat
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <script src="script.js"></script>
+    <script>
+        if (!isLoggedIn()) { window.location.href = 'login.html'; }
+        document.getElementById('headerUser').textContent = getUserLabel();
+        if (!isAdmin()) {
+            document.getElementById('menuInput').style.display = 'none';
+        }
+        initKalender();
+        initSidebar();
+    </script>
+
+</body>
+</html>
